@@ -12,11 +12,9 @@
     <link rel="stylesheet" type="text/css" href="<?php echo get_stylesheet_uri(); ?>" />
     
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="style.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri().'/css/bootstrap.min.css'; ?>" rel="stylesheet">
     <!-- Custom fonts for this template -->
-    <link href="css/fonts/Roboto.css" rel="stylesheet">
+    <link href="<?php echo get_stylesheet_directory_uri().'/css/fonts/Roboto.css'; ?>" rel="stylesheet">
 
 <?php wp_head(); ?>
 </head>
