@@ -85,23 +85,35 @@ function my_run_only_once() {
 add_action( 'admin_init', 'my_run_only_once' );
 
 global $wpdb;
-        $table_name = $wpdb->prefix.'receipts';
-        if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
-            //table not in database. Create new table
-            $charset_collate = $wpdb->get_charset_collate();
+$table_name = $wpdb->prefix.'receipts';
+//Create table if it doesn't exist
+if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
+    //table not in database. Create new table
+    $charset_collate = $wpdb->get_charset_collate();
 
-            $sql = "CREATE TABLE $table_name (
-                receipt_id INTEGER NOT NULL AUTO_INCREMENT,
-                merchant_name TEXT NOT NULL,
-                purchase_date DATE NOT NULL,
-                category_name TEXT NOT NULL,
-                reason TEXT NOT NULL,
-                imagePath TEXT NOT NULL,
-                PRIMARY KEY (receipt_id)
-            ) $charset_collate;";
-            require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-            dbDelta( $sql );
-        }
+    $sql = "CREATE TABLE $table_name (
+        receipt_id INTEGER NOT NULL AUTO_INCREMENT,
+        merchantName TEXT NOT NULL,
+        purchaseDate DATE NOT NULL,
+        categoryName TEXT NOT NULL,
+        reason TEXT NOT NULL,
+        imagePath TEXT NOT NULL,
+        PRIMARY KEY (receipt_id)
+    ) $charset_collate;";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
+}
+//Add entry if table exist
+else{
+    /*$data_array = array (
+        'merchantName' => $_POST['merchantName'];
+        'purchaseDate' => $_POST['purchaseDate'];
+        'categoryName' => $_POST['categoryName'];
+        'reason' => $_POST['reason'];
+        'receiptImage' => $_POST['imagePath'];
+    );*/
+}
+
 
 /*function receipt_create_db() {
     global $wpdb;

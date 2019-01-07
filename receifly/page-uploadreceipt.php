@@ -18,17 +18,22 @@
     <form class="form-upload-receipt" action="" method="POST">
 
         <div class="form-group">
-            <input type="file" class="form-control-file" id="exampleFormControlFile1">
+            <input type="file" class="form-control-file" id="receiptImage" name="receiptImage">
             <label for="exampleFormControlFile1">Upload Receipt</label>
         </div>
+
+        purchase_date DATE NOT NULL,
+        category_name TEXT NOT NULL,
+        reason TEXT NOT NULL,
+  
             
         <div class="form-label-group">
-            <input type="text" id="merchantName" class="form-control" placeholder="Enter Merchant Name" required="">
+            <input type="text" id="merchantName" name="merchantName" class="form-control" placeholder="Enter Merchant Name" required="" >
             <label for="merchantName">Enter Merchant Name</label>
         </div>
         
         <div class="form-label-group">
-            <input type="date" id="purchaseDate" class="form-control" placeholder="Enter Date" required="" autofocus="">
+            <input type="date" id="purchaseDate" name="purchaseDate" class="form-control" placeholder="Enter Date" required="" autofocus="">
             <label for="purchaseDate">Enter Date</label>
         </div>
 
@@ -55,7 +60,7 @@
         </div>
 
         <div class="form-label-group">
-            <input type="text" id="reason" class="form-control" placeholder="Enter Reason" required="" autofocus="">
+            <input type="text" id="reason" name="reason" class="form-control" placeholder="Enter Reason" required="" autofocus="">
             <label for="reason">Enter Reason</label>
         </div>
         
