@@ -93,11 +93,11 @@ if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 
     $sql = "CREATE TABLE $table_name (
         receipt_id INTEGER NOT NULL AUTO_INCREMENT,
+        imagePath TEXT NOT NULL,
         merchantName TEXT NOT NULL,
         purchaseDate DATE NOT NULL,
         categoryName TEXT NOT NULL,
         reason TEXT NOT NULL,
-        imagePath TEXT NOT NULL,
         PRIMARY KEY (receipt_id)
     ) $charset_collate;";
     require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
