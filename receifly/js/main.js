@@ -3,6 +3,23 @@ $( document ).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
 
+    $(".two-decimals").change(function(){
+      this.value = parseFloat(this.value).toFixed(2);
+    });
+
+    $(document).on('keydown', '.two-decimal', function(e){
+      var input = $(this);
+      var oldVal = input.val();
+      var regex = new RegExp(input.attr('pattern'), 'g');
+    
+      setTimeout(function(){
+        var newVal = input.val();
+        if(!regex.test(newVal)){
+          input.val(oldVal); 
+        }
+      }, 0);
+    });
+
     /*var $input = $("#merchantName");
     $input.typeahead({
     source: [

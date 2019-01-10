@@ -69,20 +69,44 @@ return $count;
 /****
  * Form Submission 
  ***/
-if (isset($_POST['submitReceipt'])){
+/*if (isset($_POST['submitReceipt'])){
     print_r($_POST);
     die;
-}
+}*/
 
 
 function my_run_only_once() {
- 
     if ( get_option( 'my_run_only_once_01' ) != 'completed' ) {
-        
         update_option( 'my_run_only_once_01', 'completed' );
     }
 }
 add_action( 'admin_init', 'my_run_only_once' );
+
+function receipt_filename($dir, $name, $ext){
+    $purchaseDate = date("m-d-y",strtotime($_POST['purchaseDate']));
+    $merchantName = replaceSpaceWithDash(ucwords($_POST['merchantName']));
+    return $purchaseDate.'_'.$merchantName.$ext;
+}
+
+function receipt_directory($upload) {
+    $purchaseYear = date("Y",strtotime($_POST['purchaseDate']));
+    $category = $_POST['categoryName'];
+    $receipt_directory_name = "Receipts";
+
+    $upload['subdir'] = '/'.$receipt_directory_name.'/'.$purchaseYear.'/'.$category;
+    $upload['path']   = $upload['basedir'] . $upload['subdir'];
+    $upload['url']    = $upload['baseurl'] . $upload['subdir'];
+  
+    return $upload;
+}
+
+function replaceSpaceWithDash($text) { 
+    $text = htmlentities($text); 
+    $text = str_replace(get_html_translation_table(), "-", $text);
+    $text = str_replace(" ", "-", $text);
+    $text = preg_replace("/[-]+/i", "-", $text);
+    return $text;
+}
 
 global $wpdb;
 $table_name = $wpdb->prefix.'receipts';
@@ -93,10 +117,11 @@ if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 
     $sql = "CREATE TABLE $table_name (
         receipt_id INTEGER NOT NULL AUTO_INCREMENT,
-        imagePath TEXT NOT NULL,
+        receiptImage TEXT NOT NULL,
         merchantName TEXT NOT NULL,
         purchaseDate DATE NOT NULL,
         categoryName TEXT NOT NULL,
+        purchaseAmount DECIMAL(19,2) NOT NULL,
         reason TEXT NOT NULL,
         PRIMARY KEY (receipt_id)
     ) $charset_collate;";
@@ -105,13 +130,51 @@ if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
 }
 //Add entry if table exist
 else{
-    /*$data_array = array (
-        'merchantName' => $_POST['merchantName'];
-        'purchaseDate' => $_POST['purchaseDate'];
-        'categoryName' => $_POST['categoryName'];
-        'reason' => $_POST['reason'];
-        'receiptImage' => $_POST['imagePath'];
-    );*/
+    $receiptURL;
+    if (isset($_FILES['receiptImage']['name']) )  {
+        //print_r($_FILES);
+        
+        if ( ! function_exists( 'wp_handle_upload' ) ) {
+            require_once( ABSPATH . 'wp-admin/includes/file.php' );
+        }
+
+        $uploadedfile = $_FILES['receiptImage'];
+        $upload_overrides = array( 'test_form' => false , 'unique_filename_callback' => 'receipt_filename');
+        add_filter('upload_dir', 'receipt_directory');
+        $movefile = wp_handle_upload( $uploadedfile, $upload_overrides );
+        remove_filter('upload_dir', 'receipt_directory');
+        
+        $receiptURL = $movefile['url'];
+
+        if ( $movefile && ! isset( $movefile['error'] ) ) {
+            echo '<h1 style="color:green">File Was Uploaded Successfully</h1><br>'.$receiptURL.'</br>';
+            echo '<a href="'.$receiptURL .'">View File</a>';
+            //var_dump( $movefile );
+        }else{
+            echo $movefile['error'];
+        }     
+    }
+
+     if (isset($_POST['submitReceipt'])){
+        $data_array = array (
+            'receiptImage' => $receiptURL,
+            'merchantName' => ucwords($_POST['merchantName']),
+            'purchaseDate' => $_POST['purchaseDate'],
+            'categoryName' => ucwords($_POST['categoryName']),
+            'purchaseAmount' => $_POST['purchaseAmount'],
+            'reason' => $_POST['reason']
+        );
+
+        $rowResult = $wpdb->insert($table_name, $data_array, $format=NULL);
+
+        if($rowResult == 1){
+            echo '<h1>Form Submitted Successfully!</h1>'; 
+        }else{
+            echo '<h1>Form Filed Submission!</h1>'; 
+        }
+        die;
+    } 
+
 }
 
 

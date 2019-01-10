@@ -9,36 +9,31 @@
 <section class="entry-content">
 <?php if ( has_post_thumbnail() ) { the_post_thumbnail(); } ?>
 <?php the_content(); ?>
-    <?php   if($_POST['submit']){
+    <?php if($_POST['submit']){
 
-            } else {
+        } else {
 
-            }
+        }
     ?>
-    <form class="form-upload-receipt" action="" method="POST">
+    <form class="form-upload-receipt" name="formUploadReceipt" enctype="multipart/form-data" method="POST">
 
         <div class="form-group">
             <input type="file" class="form-control-file" id="receiptImage" name="receiptImage">
-            <label for="exampleFormControlFile1">Upload Receipt</label>
+            <label for="receiptImage">Upload Receipt</label>
         </div>
-
-        purchase_date DATE NOT NULL,
-        category_name TEXT NOT NULL,
-        reason TEXT NOT NULL,
-  
             
         <div class="form-label-group">
-            <input type="text" id="merchantName" name="merchantName" class="form-control" placeholder="Enter Merchant Name" required="" >
+            <input type="text" id="merchantName" name="merchantName" class="form-control" placeholder="Enter Merchant Name">
             <label for="merchantName">Enter Merchant Name</label>
         </div>
         
         <div class="form-label-group">
-            <input type="date" id="purchaseDate" name="purchaseDate" class="form-control" placeholder="Enter Date" required="" autofocus="">
+            <input type="date" id="purchaseDate" name="purchaseDate" class="form-control" placeholder="Enter Date" autofocus="" value="<?php echo date("Y-m-d");?>">
             <label for="purchaseDate">Enter Date</label>
         </div>
 
         <div class="form-label-group">
-            <select class="form-control" id="category" name="category" required="">
+            <select class="form-control" id="categoryName" name="categoryName">
                 <option value="Advertising">Advertising</option>
                 <option value="Contract Labor">Contract Labor</option>
                 <option value="Entertainment">Entertainment</option>
@@ -56,11 +51,16 @@
                 <option value="Utilities">Utilities</option>
                 <option value="Void">Void</option>
             </select>
-            <label for="category">Select Category</label>
+            <label for="categoryName">Select Category</label>
         </div>
 
         <div class="form-label-group">
-            <input type="text" id="reason" name="reason" class="form-control" placeholder="Enter Reason" required="" autofocus="">
+            <input type="number" step="0.01" min=0 id="purchaseAmount" name="purchaseAmount" class="form-control two-decimal" placeholder="Enter Amount" pattern="^\d*(\.\d{0,2})?$" autofocus="" value="0.00">
+            <label for="purchaseAmount">Enter Amount</label>
+        </div>
+
+        <div class="form-label-group">
+            <input type="text" id="reason" name="reason" class="form-control" placeholder="Enter Reason" autofocus="">
             <label for="reason">Enter Reason</label>
         </div>
         
