@@ -4,7 +4,7 @@
 <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <header class="header">
-<h1 class="entry-title"><?php the_title(); ?></h1> <?php edit_post_link(); ?>
+<h1 class="text-center entry-title"><?php the_title(); ?></h1> <?php edit_post_link(); ?>
 </header>
 <section class="entry-content">
 <?php if ( has_post_thumbnail() ) { the_post_thumbnail(); } ?>
@@ -18,17 +18,17 @@
     <form class="form-upload-receipt" name="formUploadReceipt" enctype="multipart/form-data" method="POST">
 
         <div class="form-group">
-            <input type="file" class="form-control-file" id="receiptImage" name="receiptImage">
+            <input type="file" class="form-control-file" id="receiptImage" name="receiptImage" required>
             <label for="receiptImage">Upload Receipt</label>
         </div>
             
         <div class="form-label-group">
-            <input type="text" id="merchantName" name="merchantName" class="form-control" placeholder="Enter Merchant Name">
+            <input type="text" id="merchantName" name="merchantName" class="form-control" placeholder="Enter Merchant Name" required>
             <label for="merchantName">Enter Merchant Name</label>
         </div>
         
         <div class="form-label-group">
-            <input type="date" id="purchaseDate" name="purchaseDate" class="form-control" placeholder="Enter Date" autofocus="" value="<?php echo date("Y-m-d");?>">
+            <input type="date" id="purchaseDate" name="purchaseDate" class="form-control" placeholder="Enter Date" autofocus="" value="<?php echo date("Y-m-d");?>" required>
             <label for="purchaseDate">Enter Date</label>
         </div>
 
@@ -55,7 +55,7 @@
         </div>
 
         <div class="form-label-group">
-            <input type="number" step="0.01" min=0 id="purchaseAmount" name="purchaseAmount" class="form-control two-decimal" placeholder="Enter Amount" pattern="^\d*(\.\d{0,2})?$" autofocus="" value="0.00">
+            <input type="number" step="0.01" min=0 id="purchaseAmount" name="purchaseAmount" class="form-control two-decimal" placeholder="Enter Amount" pattern="^\d*(\.\d{0,2})?$" autofocus="" value="0.00" required>
             <label for="purchaseAmount">Enter Amount</label>
         </div>
 

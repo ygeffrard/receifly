@@ -8790,4 +8790,17 @@ body {
   outline: -webkit-focus-ring-color auto 5px;
 }
 
+.visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.logo {
+  max-width: 150px;
+}
+
 /*# sourceMappingURL=bootstrap.css.map */

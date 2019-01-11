@@ -23,8 +23,8 @@
 <div id="wrapper" class="hfeed">
 <header id="header" role="banner">
 <section id="branding">
-<div id="site-title"><?php if ( is_front_page() || is_home() || is_front_page() && is_home() ) { echo '<h1>'; } ?><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" rel="home"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></a><?php if ( is_front_page() || is_home() || is_front_page() && is_home() ) { echo '</h1>'; } ?></div>
-<div id="site-description"><?php bloginfo( 'description' ); ?></div>
+<div id="site-title" class="text-center"><?php if ( is_front_page() || is_home() || is_front_page() && is_home() ) { echo '<h1>'; } ?><a href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_html( get_bloginfo( 'name' ) ); ?>" rel="home"><img src="/wp-content/themes/receifly/img/Receipt-Fly-Logo-512.jpg" class="logo text-center"/><span class="visually-hidden"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span></a><?php if ( is_front_page() || is_home() || is_front_page() && is_home() ) { echo '</h1>'; } ?></div>
+<div id="site-description" class="text-center"><?php bloginfo( 'description' ); ?></div>
 </section>
 <nav id="menu" role="navigation">
 <div id="search">

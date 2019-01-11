@@ -3,10 +3,7 @@ $( document ).ready(function() {
 
     $('[data-toggle="tooltip"]').tooltip();
 
-    $(".two-decimals").change(function(){
-      this.value = parseFloat(this.value).toFixed(2);
-    });
-
+    //Input only allows 2 decimal on keyboard change
     $(document).on('keydown', '.two-decimal', function(e){
       var input = $(this);
       var oldVal = input.val();
