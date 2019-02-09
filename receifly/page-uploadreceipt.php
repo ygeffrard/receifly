@@ -23,6 +23,15 @@
         </div>
             
         <div class="form-label-group">
+            <select class="form-control" id="accountingCompany" name="accountingCompany">
+                <option value="YNODesigns" selected>YNO Designs</option>
+                <option value="YarleyGMusic">Yarley G Music</option>
+                <option value="Luxtreaux">Luxtreaux</option>
+            </select>
+            <label for="accountingCompany">Select Accounting Company</label>
+        </div>
+
+        <div class="form-label-group">
             <input type="text" id="merchantName" name="merchantName" class="form-control" placeholder="Enter Merchant Name" required>
             <label for="merchantName">Enter Merchant Name</label>
         </div>
@@ -36,6 +45,7 @@
             <select class="form-control" id="categoryName" name="categoryName">
                 <option value="Advertising">Advertising</option>
                 <option value="Contract Labor">Contract Labor</option>
+                <option value="Donation">Donation</option>
                 <option value="Entertainment">Entertainment</option>
                 <option value="Equipment">Equipment</option>
                 <option value="Income">Equipment</option>

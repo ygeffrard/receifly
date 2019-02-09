@@ -91,9 +91,10 @@ function receipt_filename($dir, $name, $ext){
 function receipt_directory($upload) {
     $purchaseYear = date("Y",strtotime($_POST['purchaseDate']));
     $category = $_POST['categoryName'];
+    $accountingCompany = $_POST['accountingCompany'];
     $receipt_directory_name = "Receipts";
 
-    $upload['subdir'] = '/'.$receipt_directory_name.'/'.$purchaseYear.'/'.$category;
+    $upload['subdir'] = '/'.$receipt_directory_name.'/'.$purchaseYear.'/'.$accountingCompany.'/'.$category;
     $upload['path']   = $upload['basedir'] . $upload['subdir'];
     $upload['url']    = $upload['baseurl'] . $upload['subdir'];
   
@@ -118,6 +119,7 @@ if($wpdb->get_var("SHOW TABLES LIKE '$table_name'") != $table_name) {
     $sql = "CREATE TABLE $table_name (
         receipt_id INTEGER NOT NULL AUTO_INCREMENT,
         receiptImage TEXT NOT NULL,
+        accountingCompany TEXT NOT NULL,
         merchantName TEXT NOT NULL,
         purchaseDate DATE NOT NULL,
         categoryName TEXT NOT NULL,
@@ -158,6 +160,7 @@ else{
      if (isset($_POST['submitReceipt'])){
         $data_array = array (
             'receiptImage' => $receiptURL,
+            'accountingCompany' => $_POST['accountingCompany'],
             'merchantName' => ucwords($_POST['merchantName']),
             'purchaseDate' => $_POST['purchaseDate'],
             'categoryName' => ucwords($_POST['categoryName']),
