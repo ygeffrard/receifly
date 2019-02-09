@@ -48,7 +48,7 @@
                 <option value="Donation">Donation</option>
                 <option value="Entertainment">Entertainment</option>
                 <option value="Equipment">Equipment</option>
-                <option value="Income">Equipment</option>
+                <option value="Income">Income</option>
                 <option value="Legal Services">Legal Services</option>
                 <option value="Licenses and Regulatory">Licenses and Regulatory</option>
                 <option value="Meals">Meals</option>
